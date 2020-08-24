@@ -6,6 +6,7 @@ chars = list(set(data))
 data_size, vocab_size = len(data), len(chars)
 char_to_ix = {ch: i for i, ch in enumerate(chars)}
 ix_to_char = {i: ch for i, ch in enumerate(chars)}
+# done building vocab
 
 # hyperparameters
 hidden_size = 100  # size of hidden layer of neurons
