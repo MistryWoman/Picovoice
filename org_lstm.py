@@ -1,7 +1,9 @@
 import numpy as np
 from random import uniform
+import re
 
-data = open('input.txt').read()
+data = open('input.txt', encoding= 'utf-8').read()
+data = re.sub('[!,*)@#%(&$_?.^;-:']', '', data)
 
 chars = set(data)
 vocab_size = len(chars)
@@ -320,5 +322,5 @@ class LSTM:
 
         return J, self.params
 
-model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 100, lr = 0.01)
+model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 5, lr = 0.01)
 J, params = model.train(data)
