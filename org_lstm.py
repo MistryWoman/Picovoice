@@ -136,6 +136,8 @@ class LSTM:
 
         f = self.sigmoid(np.dot(self.params["Wf"], z) + self.params["bf"])
         #####################################################################################
+        mat_ones = np.tile(1, f.shape)
+        i = mat_ones - f
         # i = self.sigmoid(np.dot(self.params["Wi"], z) + self.params["bi"])
         c_bar = np.tanh(np.dot(self.params["Wc"], z) + self.params["bc"])
 
@@ -300,8 +302,8 @@ class LSTM:
                 J.append(self.smooth_loss)
 
                 # check gradients
-                if epoch == 0 and j == 0:
-                    self.gradient_check(x_batch, y_batch, h_prev, c_prev, num_checks=10, delta=1e-7)
+                # if epoch == 0 and j == 0:
+                #     self.gradient_check(x_batch, y_batch, h_prev, c_prev, num_checks=10, delta=1e-7)
 
                 self.clip_grads()
 
@@ -318,5 +320,5 @@ class LSTM:
 
         return J, self.params
 
-model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 20, lr = 0.01)
+model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 100, lr = 0.01)
 J, params = model.train(data)
