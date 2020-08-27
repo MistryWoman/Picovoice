@@ -28,12 +28,15 @@ def lossFun(inputs, targets, hprev):
     returns the loss, gradients on model parameters, and last hidden state
     """
     xs, hs, ys, ps = {}, {}, {}, {}
+    # set the last hidden state in hs as hprev
     hs[-1] = np.copy(hprev)
     loss = 0
     # forward pass
     for t in range(len(inputs)):
         xs[t] = np.zeros((vocab_size, 1))  # encode in 1-of-k representation
+        # make sure only the char present has value of one , rest all have zero
         xs[t][inputs[t]] = 1
+        # hs[t-1] refers to the previous hidden state
         hs[t] = np.tanh(np.dot(Wxh, xs[t]) + np.dot(Whh, hs[t - 1]) + bh)  # hidden state
         ys[t] = np.dot(Why, hs[t]) + by  # unnormalized log probabilities for next chars
         ps[t] = np.exp(ys[t]) / np.sum(np.exp(ys[t]))  # probabilities for next chars
@@ -44,8 +47,7 @@ def lossFun(inputs, targets, hprev):
     dhnext = np.zeros_like(hs[0])
     for t in reversed(range(len(inputs))):
         dy = np.copy(ps[t])
-        dy[targets[
-            t]] -= 1  # backprop into y. see http://cs231n.github.io/neural-networks-case-study/#grad if confused here
+        dy[targets[t]] -= 1  # backprop into y. see  if confused here
         dWhy += np.dot(dy, hs[t].T)
         dby += dy
         dh = np.dot(Why.T, dy) + dhnext  # backprop into h
