@@ -5,6 +5,7 @@
 - https://sikoried.github.io/sequence-learning/08-seq2seq/seq2seq.pdf
 
 
-# LSTM
+# LSTM (CIFG == GRU!!!!)
 - https://gist.github.com/karpathy/d4dee566867f8291f086
 - http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+- https://github.com/erikvdplas/gru-rnn
