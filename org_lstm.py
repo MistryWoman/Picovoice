@@ -5,7 +5,7 @@ import re
 # nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 
-data = open('input.txt', encoding= 'utf-8').read()
+data = open('test_input.txt', encoding= 'utf-8').read()
 data = re.sub('[!,*)@#%(&$_?.^]', '', data)
 
 chars = set(data)
@@ -327,10 +327,22 @@ class LSTM:
 
         return J, self.params, result
 
-model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 50 , lr = 0.01)
+model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 20 , lr = 0.01)
 J, params, result = model.train(data)
 
 print('output', result.split(' '))
 
 with open('result.txt', 'w', encoding= 'utf-8') as filehandle:
     filehandle.writelines("%s\n" % word for word in result.split(' '))
+
+gold_set = set(data.split(' '))
+generated_set = set(result.split(' '))
+intersection = gold_set.intersection(generated_set) # set of words correctly learnt by the model
+print('The model has successfully learnt the following words', intersection)
+
+recall = len(intersection) / len(gold_set)
+print('recall/ ROUGE -1 : ', recall)
+
+
+print(intersection)
+print(len(gold_set.intersection(generated_set)))
