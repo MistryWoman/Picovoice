@@ -1,12 +1,9 @@
 import numpy as np
 from random import uniform
 import re
-# import nltk
-# nltk.download('punkt')
-from nltk.tokenize import word_tokenize
 
 data = open('input.txt', encoding= 'utf-8').read()
-data = re.sub('[!,*)@#%(&$_?.^]', '', data)
+data = re.sub('[!,*)@#%(&$_?.^;-:']', '', data)
 
 chars = set(data)
 vocab_size = len(chars)
@@ -142,7 +139,7 @@ class LSTM:
         f = self.sigmoid(np.dot(self.params["Wf"], z) + self.params["bf"])
         #####################################################################################
         mat_ones = np.tile(1, f.shape)
-        i = np.subtract(mat_ones, f)
+        i = mat_ones - f
         # i = self.sigmoid(np.dot(self.params["Wi"], z) + self.params["bi"])
         c_bar = np.tanh(np.dot(self.params["Wc"], z) + self.params["bc"])
 
@@ -287,7 +284,6 @@ class LSTM:
         Main method of the LSTM class where training takes place
         """
         J = []  # to store losses
-        result = '' # to store all the generated text
 
         num_batches = len(X) // self.seq_len
         X_trimmed = X[: num_batches * self.seq_len]  # trim input to have full sequences
@@ -322,15 +318,9 @@ class LSTM:
                         print('Epoch:', epoch, '\tBatch:', j, "-", j + self.seq_len,
                               '\tLoss:', round(self.smooth_loss, 2))
                         s = self.sample(h_prev, c_prev, sample_size=250)
-                        result += s
                         print(s, "\n")
 
-        return J, self.params, result
+        return J, self.params
 
-model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 50 , lr = 0.01)
-J, params, result = model.train(data)
-
-print('output', result.split(' '))
-
-with open('result.txt', 'w', encoding= 'utf-8') as filehandle:
-    filehandle.writelines("%s\n" % word for word in result.split(' '))
+model = LSTM(char_to_idx, idx_to_char, vocab_size, epochs = 5, lr = 0.01)
+J, params = model.train(data)
