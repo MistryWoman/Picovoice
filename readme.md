@@ -8,6 +8,8 @@
 - My approach for this question was to follow the data preparation and processing steps from the tensorflow implementation of CTC RNN
 and then use the numpy implementation of CTC loss once I have the data in the right format. But I spent too much time learning about audio processing.
 - Here I am linking the py files that I was trying to consolidate into one pipeline
+    - Data set (A parallel corpus of .wav files with the corresponding text being spoken)
+        - [Dataset](https://github.com/MistryWoman/Picovoice/tree/master/vctk-p225)
     - Data Preparation
         - [Reading audio files](https://github.com/MistryWoman/Picovoice/blob/master/audio_reader.py)
         - [File logging script](https://github.com/MistryWoman/Picovoice/blob/master/file_logger.py)
@@ -25,7 +27,7 @@ and then use the numpy implementation of CTC loss once I have the data in the ri
 - https://sikoried.github.io/sequence-learning/08-seq2seq/seq2seq.pdf
 
 
-# LSTM (CIFG)
+# Q3)  LSTM (CIFG)
 - To test out the CIFG LSTM , I used text from Alice in the Wonderland from Project Gutenberg.
 
 - [Solution](https://github.com/MistryWoman/Picovoice/blob/master/CIFG_LSTM.ipynb)
