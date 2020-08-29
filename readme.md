@@ -30,7 +30,7 @@ and then use the numpy implementation of CTC loss once I have the data in the ri
 # Q3)  LSTM (CIFG)
 - To test out the CIFG LSTM , I used text from Alice in the Wonderland from Project Gutenberg.
 
-- [Solution](https://github.com/MistryWoman/Picovoice/blob/master/CIFG_LSTM.ipynb)
+- [Solution](https://github.com/MistryWoman/Picovoice/blob/master/cifg_lstm.ipynb)
 
 - I referred to the following to decide evaluation metric
 - https://arxiv.org/pdf/2006.14799.pdf
